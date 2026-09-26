@@ -16,9 +16,8 @@ public class Profesor extends Persona {
         super(nombre, edad, id, telefono, correo);
         this.nivelReferencia = nivelReferencia;
         this.tarifaSesion = tarifaSesion;
-        Sesiones = sesiones;
+        this.Sesiones = sesiones;
         this.idioma = idioma;
-        this.nivelReferencia = nivelReferencia;
         this.listCursoProfesor = new ArrayList<>();
     }
 

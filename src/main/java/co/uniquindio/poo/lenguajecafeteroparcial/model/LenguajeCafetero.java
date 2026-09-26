@@ -44,9 +44,11 @@ public class LenguajeCafetero {
         boolean encontrado = false;
         for(Persona e : listPersonaLenguajeCafetero){
             if(e.getId() == id){
-                return encontrado;
+                if(e instanceof Estudiante) {
+                    encontrado = true;
+                }
             }else{
-                encontrado = true;
+                return encontrado;
             }
         }
         return encontrado;
@@ -63,6 +65,59 @@ public class LenguajeCafetero {
         }
         return mensaje;
     }
+
+    public boolean buscarProfesor(int id){
+            boolean encontrado = false;
+            for(Persona p : listPersonaLenguajeCafetero){
+                if(p.getId()==id){
+                    if(p instanceof Profesor){
+                        encontrado = true;
+                    }
+                }else{
+                    return encontrado;
+                }
+            }
+
+            return encontrado;
+    }
+
+    public String agregarProfesor(String nombre, int edad, int id, String telefono, String correo, NivelReferencia nivelReferencia, double tarifaSesion, int sesiones, Idioma idioma){
+        String mensaje = "";
+        if(buscarProfesor(id)){
+            mensaje = "Profesor ya se encuentra registrado";
+        }else{
+            Profesor profesor = new Profesor(nombre, edad, id, telefono, correo, nivelReferencia, tarifaSesion, sesiones, idioma);
+            listPersonaLenguajeCafetero.add(profesor);
+            mensaje = "El Profesor se registro correctamente";
+        }
+        return mensaje;
+    }
+
+    public boolean buscarServicioAdicional(int codigo){
+        boolean encontrado = false;
+        for(ServicioAdicional s : listServicioAdicionalLenguajeCafetero){
+            if(s.getCodigo()==codigo){
+                encontrado = true;
+            }else{
+                return encontrado;
+            }
+        }
+
+        return encontrado;
+    }
+
+    public String agregarServicioAdicional(int codigo, boolean disponibilidad, double precio, String descripcion, String nombre){
+        String mensaje = "";
+        if(buscarServicioAdicional(codigo)){
+            mensaje = "EL servicio ya se encuentra registado";
+        }else{
+            ServicioAdicional servicio = new ServicioAdicional(codigo, disponibilidad, precio, descripcion, nombre);
+            listServicioAdicionalLenguajeCafetero.add(servicio);
+            mensaje = "El Servicio Adicional se registro correctamente";
+        }
+        return mensaje;
+    }
+
 
     public String getNit() {
         return nit;
