@@ -6,6 +6,7 @@ public class Matricula {
     private double fechaFin;
     private double descuento;
     private double valorFinal;
+    private Estudiante theEstudianteMatricula;
 
     public Matricula(double fechaInicio, double fechaFin, double descuento, double valorFinal){
         this.fechaInicio = fechaInicio;

@@ -1,5 +1,7 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.util.List;
+
 public class ServicioAdicional {
 
     private int codigo;
@@ -7,6 +9,9 @@ public class ServicioAdicional {
     private String descripcion;
     private double precio;
     private boolean disponibilidad;
+
+    private List<Estudiante> listEstudianteServicioAdicional;
+    private List<Curso> listCursoServicioAdicional;
 
     public ServicioAdicional(int codigo, boolean disponibilidad, double precio, String descripcion, String nombre) {
         this.codigo = codigo;

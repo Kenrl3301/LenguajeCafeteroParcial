@@ -1,18 +1,27 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
-public class Curso {
-    int codigo;
-    String nombre;
-    String descripcion;
-    int duracion;
-    double valorM;
+import java.util.List;
 
-    public Curso(int codigo, String nombre, String descripcion, int duracion, double valorM) {
+public class Curso {
+    private int codigo;
+    private String nombre;
+    private String descripcion;
+    private int duracion;
+    private double valorM;
+    private Estado estado;
+    private Idioma idioma;
+
+    private List<ServicioAdicional> listServicioAdicionalCurso;
+
+    public Curso(int codigo, List<ServicioAdicional> listServicioAdicionalCurso, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre) {
         this.codigo = codigo;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.duracion = duracion;
+        this.listServicioAdicionalCurso = listServicioAdicionalCurso;
+        this.idioma = idioma;
+        this.estado = estado;
         this.valorM = valorM;
+        this.duracion = duracion;
+        this.descripcion = descripcion;
+        this.nombre = nombre;
     }
 
     public Curso(int codigo) {
