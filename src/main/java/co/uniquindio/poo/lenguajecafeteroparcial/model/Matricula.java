@@ -1,18 +1,18 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Matricula {
 
-    private double fechaInicio;
-    private double fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private double descuento;
     private double valorFinal;
     private Estudiante theEstudianteMatricula;
     private Curso theCursoMatricula;
     private List<ServicioAdicional> listServiciosAdicionales;
-
 
     private Matricula(Builder builder) {
         this.fechaInicio = builder.fechaInicio;
@@ -24,22 +24,29 @@ public class Matricula {
         this.listServiciosAdicionales = builder.listServiciosAdicionales;
     }
 
+    public LocalDate getFechaInicio() { return fechaInicio; }
+    public LocalDate getFechaFin() { return fechaFin; }
+    public double getDescuento() { return descuento; }
+    public double getValorFinal() { return valorFinal; }
+    public Estudiante getTheEstudianteMatricula() { return theEstudianteMatricula; }
+    public Curso getTheCursoMatricula() { return theCursoMatricula; }
+    public List<ServicioAdicional> getListServiciosAdicionales() { return listServiciosAdicionales; }
 
     public static class Builder {
-        private double fechaInicio;
-        private double fechaFin;
+        private LocalDate fechaInicio;
+        private LocalDate fechaFin;
         private double descuento;
         private double valorFinal;
         private Estudiante theEstudianteMatricula;
         private Curso theCursoMatricula;
         private List<ServicioAdicional> listServiciosAdicionales = new ArrayList<>();
 
-        public Builder fechaInicio(double fechaInicio) {
+        public Builder fechaInicio(LocalDate fechaInicio) {
             this.fechaInicio = fechaInicio;
             return this;
         }
 
-        public Builder fechaFin(double fechaFin) {
+        public Builder fechaFin(LocalDate fechaFin) {
             this.fechaFin = fechaFin;
             return this;
         }
@@ -64,14 +71,12 @@ public class Matricula {
             return this;
         }
 
-
         public Builder listServiciosAdicionales(List<ServicioAdicional> servicios) {
             this.listServiciosAdicionales = servicios;
             return this;
         }
 
         public Matricula build() {
-            // Aquí puedes agregar tu propia lógica matemática más adelante si lo necesitas
             return new Matricula(this);
         }
     }

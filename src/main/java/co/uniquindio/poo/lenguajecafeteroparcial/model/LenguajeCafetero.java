@@ -1,5 +1,6 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,7 @@ public class LenguajeCafetero {
         String mensaje = "";
         for(Curso c : listCursoLenguajeCafetero){
             if(c.getNombre().equals(nombre)){
-                if(c.getCodigo() == codigo) {
-                    return "El curso con este nombre ya se encuentra registrado";
-                }
+                return "El curso con este nombre ya se encuentra registrado";
             }else{
                 Curso curso = new Curso(codigo, idioma, estado, valorM, duracion, descripcion, nombre);
                 listCursoLenguajeCafetero.add(curso);
@@ -42,21 +41,21 @@ public class LenguajeCafetero {
         return mensaje;
     }
 
+
+    //------------------------------------------------- CRUD ESTUDIANTE-----------------------------------------------------------------------
     public boolean buscarEstudiante(int id){
         boolean encontrado = false;
         for(Persona e : listPersonaLenguajeCafetero){
             if(e.getId() == id){
-                if(e instanceof Estudiante) {
-                    encontrado = true;
-                }
-            }else{
                 return encontrado;
+            }else{
+                encontrado = true;
             }
         }
         return encontrado;
     }
 
-    public String agregarEstudiante(String nombre, int edad, int id, String telefono, String correo, double fechaIngreso){
+    public String agregarEstudiante(String nombre, int edad, int id, String telefono, String correo, LocalDate fechaIngreso){
         String mensaje = "";
         if(buscarEstudiante(id)){
             mensaje = "Estudiante ya se encuentra registrado";
@@ -68,19 +67,21 @@ public class LenguajeCafetero {
         return mensaje;
     }
 
-    public boolean buscarProfesor(int id){
-            boolean encontrado = false;
-            for(Persona p : listPersonaLenguajeCafetero){
-                if(p.getId()==id){
-                    if(p instanceof Profesor){
-                        encontrado = true;
-                    }
-                }else{
-                    return encontrado;
-                }
-            }
+    ///  ///////////////////////////////////////////////////////////////////////////////////////////////
 
-            return encontrado;
+    public boolean buscarProfesor(int id){
+        boolean encontrado = false;
+        for(Persona p : listPersonaLenguajeCafetero){
+            if(p.getId()==id){
+                if(p instanceof Profesor){
+                    encontrado = true;
+                }
+            }else{
+                return encontrado;
+            }
+        }
+
+        return encontrado;
     }
 
     public String agregarProfesor(String nombre, int edad, int id, String telefono, String correo, NivelReferencia nivelReferencia, double tarifaSesion, int sesiones, Idioma idioma){
@@ -120,6 +121,18 @@ public class LenguajeCafetero {
         return mensaje;
     }
 
+
+// --------------------------------------------- CRUD MATRICULA ----------------------------------------------------------
+
+    Matricula nuevaMatricula = new Matricula.Builder()
+            .fechaInicio()
+            .fechaFin()
+            .descuento()
+            .valorFinal()                 // Todavia faltan metodos pa empezar a hacer esta vaina
+            .theEstudianteMatricula()
+            .theCursoMatricula()
+            .listServiciosAdicionales()
+            .build();
 
     public String getNit() {
         return nit;
