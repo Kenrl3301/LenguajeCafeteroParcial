@@ -14,9 +14,8 @@ public class Curso {
 
     private List<ServicioAdicional> listServicioAdicionalCurso;
 
-    public Curso(int codigo, List<ServicioAdicional> listServicioAdicionalCurso, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre) {
+    public Curso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre) {
         this.codigo = codigo;
-        this.listServicioAdicionalCurso = listServicioAdicionalCurso;
         this.idioma = idioma;
         this.estado = estado;
         this.valorM = valorM;

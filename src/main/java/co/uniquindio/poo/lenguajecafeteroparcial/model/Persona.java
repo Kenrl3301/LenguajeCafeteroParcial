@@ -4,17 +4,26 @@ public abstract class Persona {
 
     private String nombre;
     private int edad;
+    private int id;
     private String telefono;
     private String correo;
 
-    public  Persona(String nombre, int edad, int id, String telefono, String correo){
+    public Persona(String nombre, int edad, int id, String telefono, String correo){
         this.nombre = nombre;
         this.edad = edad;
+        this.id = id;
         this.telefono = telefono;
         this.correo = correo;
+
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCorreo() {
         return correo;

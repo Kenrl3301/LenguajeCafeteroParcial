@@ -26,6 +26,44 @@ public class LenguajeCafetero {
         this.listPersonaLenguajeCafetero = new ArrayList<>();
     }
 
+    public String agregarCurso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre){
+        String mensaje = "";
+        for(Curso c : listCursoLenguajeCafetero){
+            if(c.getNombre().equals(nombre)){
+                return "El curso con este nombre ya se encuentra registrado";
+            }else{
+                Curso curso = new Curso(codigo, idioma, estado, valorM, duracion, descripcion, nombre);
+                listCursoLenguajeCafetero.add(curso);
+                return "Curso registrado correctamente";
+            }
+        }
+        return mensaje;
+    }
+
+    public boolean buscarEstudiante(int id){
+        boolean encontrado = false;
+        for(Persona e : listPersonaLenguajeCafetero){
+            if(e.getId() == id){
+                return encontrado;
+            }else{
+                encontrado = true;
+            }
+        }
+        return encontrado;
+    }
+
+    public String agregarEstudiante(String nombre, int edad, int id, String telefono, String correo, double fechaIngreso){
+        String mensaje = "";
+        if(buscarEstudiante(id)){
+            mensaje = "Estudiante ya se encuentra registrado";
+        }else{
+            Estudiante estudiante = new Estudiante(nombre, edad, id, telefono, correo, fechaIngreso);
+            listPersonaLenguajeCafetero.add(estudiante);
+            mensaje = "El estudiante se registro correctamente";
+        }
+        return mensaje;
+    }
+
     public String getNit() {
         return nit;
     }
