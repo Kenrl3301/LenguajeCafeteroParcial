@@ -7,15 +7,12 @@ public class Profesor extends Persona {
     private double tarifaSesion;
 
 
-    public Profesor(String nombre, int edad, String telefono, String correo, double tarifaSesion, int sesiones, Idioma idioma) {
-        super(nombre, edad, telefono, correo);
+    public Profesor(String nombre, int edad, int id, String telefono, String correo, Idioma idioma, double tarifaSesion, int sesiones) {
+        super(nombre, edad, id, telefono, correo);
+        this.idioma = idioma;
         this.tarifaSesion = tarifaSesion;
         Sesiones = sesiones;
     }
-
-
-
-
 
     public Idioma getIdioma() {
         return idioma;
