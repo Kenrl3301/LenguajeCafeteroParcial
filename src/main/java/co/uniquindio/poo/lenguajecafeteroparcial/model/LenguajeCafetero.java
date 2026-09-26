@@ -15,6 +15,7 @@ public class LenguajeCafetero {
     private List<Curso> listCursoLenguajeCafetero;
     private List<Persona> listPersonaLenguajeCafetero;
 
+    private static LenguajeCafetero instancia;
 
     public LenguajeCafetero(String nit, String url, String correoE, String direccion) {
         this.nit = nit;
@@ -27,6 +28,14 @@ public class LenguajeCafetero {
         this.listPersonaLenguajeCafetero = new ArrayList<>();
     }
 
+    public static LenguajeCafetero getInstance(String nit, String url, String correoE, String direccion) {
+        if (instancia == null) {
+            instancia = new LenguajeCafetero(nit, url, correoE, direccion);
+        }
+        return instancia;
+    }
+
+    // ----------------------------------------------------------------------CRUD CURSO----------------------------------------
     public String agregarCurso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, List<Beneficio> ListBeneficioCurso){
         String mensaje = "";
         for(Curso c : listCursoLenguajeCafetero){
@@ -39,6 +48,15 @@ public class LenguajeCafetero {
             }
         }
         return mensaje;
+    }
+
+    public Curso obtenerCurso(String nombre){
+        for(Curso c : listCursoLenguajeCafetero){
+            if(c.getNombre().equals(nombre)){
+                return c;
+            }
+        }
+        return null;
     }
 
 
@@ -65,6 +83,15 @@ public class LenguajeCafetero {
             mensaje = "El estudiante se registro correctamente";
         }
         return mensaje;
+    }
+
+    public Estudiante obtenerEstudiante(int id){
+        for(Persona p : listPersonaLenguajeCafetero){
+            if(p.getId() == id && p instanceof Estudiante){
+                return (Estudiante) p;
+            }
+        }
+        return null;
     }
 
     // ---------------------------------------------------CRUD PROFESOR-----------------------------------------------
@@ -124,16 +151,33 @@ public class LenguajeCafetero {
 
 // --------------------------------------------- CRUD MATRICULA ----------------------------------------------------------
 
-    Matricula nuevaMatricula = new Matricula.Builder()
-            .fechaInicio()
-            .fechaFin()
-            .descuento()
-            .valorFinal()                 // Todavia faltan metodos pa empezar a hacer esta vaina
-            .theEstudianteMatricula()
-            .theCursoMatricula()
-            .listServiciosAdicionales()
-            .build();
+    public String agregarMatricula(LocalDate fechaInicio, LocalDate fechaFin, double descuento, double valorFinal,
+                                   int idEstudiante, String nombreCurso, List<ServicioAdicional> serviciosSeleccionados){
 
+        Estudiante estudiante = obtenerEstudiante(idEstudiante);
+        if(estudiante == null){
+            return "Estudiante no encontrado";
+        }
+
+        Curso curso = obtenerCurso(nombreCurso);
+        if(curso == null){
+            return "Curso no encontrado";
+        }
+
+
+        Matricula nuevaMatricula = new Matricula.Builder()
+                .fechaInicio(fechaInicio)
+                .fechaFin(fechaFin)
+                .descuento(descuento)
+                .valorFinal(valorFinal)
+                .theEstudianteMatricula(estudiante)
+                .theCursoMatricula(curso)
+                .listServiciosAdicionales(serviciosSeleccionados)
+                .build();
+
+        listMatriculaLenguajeCafetero.add(nuevaMatricula);
+        return "Matrícula registrada correctamente";
+    }
     public String getNit() {
         return nit;
     }
