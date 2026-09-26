@@ -30,7 +30,9 @@ public class LenguajeCafetero {
         String mensaje = "";
         for(Curso c : listCursoLenguajeCafetero){
             if(c.getNombre().equals(nombre)){
-                return "El curso con este nombre ya se encuentra registrado";
+                if(c.getCodigo() == codigo) {
+                    return "El curso con este nombre ya se encuentra registrado";
+                }
             }else{
                 Curso curso = new Curso(codigo, idioma, estado, valorM, duracion, descripcion, nombre);
                 listCursoLenguajeCafetero.add(curso);
