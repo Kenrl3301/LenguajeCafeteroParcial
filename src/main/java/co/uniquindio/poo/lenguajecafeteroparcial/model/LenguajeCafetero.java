@@ -1,5 +1,6 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LenguajeCafetero {
@@ -10,7 +11,7 @@ public class LenguajeCafetero {
 
     private List<Matricula> listMatriculaLenguajeCafetero;
     private List<ServicioAdicional> listServicioAdicionalLenguajeCafetero;
-    private List<Curso> lisrCursoLenguajeCafetero;
+    private List<Curso> listCursoLenguajeCafetero;
     private List<Persona> listPersonaLenguajeCafetero;
 
 
@@ -19,6 +20,10 @@ public class LenguajeCafetero {
         this.url = url;
         this.correoE = correoE;
         this.direccion = direccion;
+        this.listMatriculaLenguajeCafetero = new ArrayList<>();
+        this.listServicioAdicionalLenguajeCafetero = new ArrayList<>();
+        this.listCursoLenguajeCafetero = new ArrayList<>();
+        this.listPersonaLenguajeCafetero = new ArrayList<>();
     }
 
     public String getNit() {

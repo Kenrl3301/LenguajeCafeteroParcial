@@ -1,5 +1,6 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curso {
@@ -22,6 +23,7 @@ public class Curso {
         this.duracion = duracion;
         this.descripcion = descripcion;
         this.nombre = nombre;
+        this.listServicioAdicionalCurso = new ArrayList<>();
     }
 
     public Curso(int codigo) {

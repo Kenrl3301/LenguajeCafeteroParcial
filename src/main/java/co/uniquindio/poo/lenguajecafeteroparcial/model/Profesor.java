@@ -1,5 +1,6 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Profesor extends Persona {
@@ -18,6 +19,7 @@ public class Profesor extends Persona {
         Sesiones = sesiones;
         this.idioma = idioma;
         this.nivelReferencia = nivelReferencia;
+        this.listCursoProfesor = new ArrayList<>();
     }
 
 
