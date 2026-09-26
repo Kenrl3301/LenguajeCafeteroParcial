@@ -1,8 +1,9 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
-public class CursoRegular extends Curso {
+import java.util.List;
 
-    public CursoRegular(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre) {
-        super(codigo, idioma, estado, valorM, duracion, descripcion, nombre);
+public class CursoRegular extends Curso {
+    public CursoRegular(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, List<Beneficio> listBeneficioCurso) {
+        super(codigo, idioma, estado, valorM, duracion, descripcion, nombre, listBeneficioCurso);
     }
 }

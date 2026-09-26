@@ -24,7 +24,6 @@ public class Matricula {
         this.listServiciosAdicionales = builder.listServiciosAdicionales;
     }
 
-
     public static class Builder {
         private double fechaInicio;
         private double fechaFin;

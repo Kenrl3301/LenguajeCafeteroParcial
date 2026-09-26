@@ -3,7 +3,7 @@ package co.uniquindio.poo.lenguajecafeteroparcial.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Curso {
+public abstract class Curso {
     private int codigo;
     private String nombre;
     private String descripcion;
@@ -13,8 +13,10 @@ public class Curso {
     private Idioma idioma;
 
     private List<ServicioAdicional> listServicioAdicionalCurso;
+    private List<Beneficio> listBeneficioCurso;
 
-    public Curso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre) {
+    // Se agrega listBeneficioCurso al final del constructor
+    public Curso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, List<Beneficio> listBeneficioCurso) {
         this.codigo = codigo;
         this.idioma = idioma;
         this.estado = estado;
@@ -22,6 +24,7 @@ public class Curso {
         this.duracion = duracion;
         this.descripcion = descripcion;
         this.nombre = nombre;
+        this.listBeneficioCurso = listBeneficioCurso;
         this.listServicioAdicionalCurso = new ArrayList<>();
     }
 
@@ -65,6 +68,20 @@ public class Curso {
     public void setValorM(double valorM) {
         this.valorM = valorM;
     }
+    public List<Beneficio> getListBeneficioCurso() {
+        return listBeneficioCurso;
+    }
 
+    public void setListBeneficioCurso(List<Beneficio> listBeneficioCurso) {
+        this.listBeneficioCurso = listBeneficioCurso;
+    }
+
+    public List<ServicioAdicional> getListServicioAdicionalCurso() {
+        return listServicioAdicionalCurso;
+    }
+
+    public void setListServicioAdicionalCurso(List<ServicioAdicional> listServicioAdicionalCurso) {
+        this.listServicioAdicionalCurso = listServicioAdicionalCurso;
+    }
 
 }

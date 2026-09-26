@@ -1,13 +1,15 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.util.List;
+
 public class CursoPersonalizado extends Curso {
 
     private int cantidadSesiones;
     private NivelReferencia nivelReferencia;
     private String objetivos;
 
-    public CursoPersonalizado(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, int cantidadSesiones, NivelReferencia nivelReferencia, String objetivos) {
-        super(codigo, idioma, estado, valorM, duracion, descripcion, nombre);
+    public CursoPersonalizado(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, int cantidadSesiones, NivelReferencia nivelReferencia, String objetivos, List<Beneficio> ListBeneficioCurso) {
+        super(codigo, idioma, estado, valorM, duracion, descripcion, nombre, ListBeneficioCurso);
         this.cantidadSesiones = cantidadSesiones;
         this.nivelReferencia = nivelReferencia;
         this.objetivos = objetivos;
