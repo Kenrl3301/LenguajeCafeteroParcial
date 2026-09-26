@@ -3,7 +3,7 @@ package co.uniquindio.poo.lenguajecafeteroparcial.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Curso {
+public class Curso {
     private int codigo;
     private String nombre;
     private String descripcion;

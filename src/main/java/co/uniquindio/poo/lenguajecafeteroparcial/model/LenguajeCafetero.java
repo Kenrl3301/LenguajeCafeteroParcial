@@ -27,13 +27,13 @@ public class LenguajeCafetero {
         this.listPersonaLenguajeCafetero = new ArrayList<>();
     }
 
-    public String agregarCurso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre){
+    public String agregarCurso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, List<Beneficio> ListBeneficioCurso){
         String mensaje = "";
         for(Curso c : listCursoLenguajeCafetero){
             if(c.getNombre().equals(nombre)){
                 return "El curso con este nombre ya se encuentra registrado";
             }else{
-                Curso curso = new Curso(codigo, idioma, estado, valorM, duracion, descripcion, nombre);
+                Curso curso = new Curso(codigo, idioma, estado, valorM, duracion, descripcion, nombre, ListBeneficioCurso);
                 listCursoLenguajeCafetero.add(curso);
                 return "Curso registrado correctamente";
             }
@@ -67,7 +67,7 @@ public class LenguajeCafetero {
         return mensaje;
     }
 
-    ///  ///////////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------------------------------------CRUD PROFESOR-----------------------------------------------
 
     public boolean buscarProfesor(int id){
         boolean encontrado = false;
@@ -95,7 +95,7 @@ public class LenguajeCafetero {
         }
         return mensaje;
     }
-
+   // --------------------------------------------------------------- CRUD SERVICIO ADICIONAL ------------------------------------------
     public boolean buscarServicioAdicional(int codigo){
         boolean encontrado = false;
         for(ServicioAdicional s : listServicioAdicionalLenguajeCafetero){
