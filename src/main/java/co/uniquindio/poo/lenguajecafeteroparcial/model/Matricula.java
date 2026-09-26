@@ -1,51 +1,83 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Matricula {
 
-    private double fechaInicio;
-    private double fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private double descuento;
     private double valorFinal;
     private Estudiante theEstudianteMatricula;
+    private Curso theCursoMatricula;
+    private List<ServicioAdicional> listServiciosAdicionales;
 
-    public Matricula(double fechaInicio, double fechaFin, double descuento, double valorFinal){
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.descuento = descuento;
-        this.valorFinal = valorFinal;
+    private Matricula(Builder builder) {
+        this.fechaInicio = builder.fechaInicio;
+        this.fechaFin = builder.fechaFin;
+        this.descuento = builder.descuento;
+        this.valorFinal = builder.valorFinal;
+        this.theEstudianteMatricula = builder.theEstudianteMatricula;
+        this.theCursoMatricula = builder.theCursoMatricula;
+        this.listServiciosAdicionales = builder.listServiciosAdicionales;
     }
 
+    public LocalDate getFechaInicio() { return fechaInicio; }
+    public LocalDate getFechaFin() { return fechaFin; }
+    public double getDescuento() { return descuento; }
+    public double getValorFinal() { return valorFinal; }
+    public Estudiante getTheEstudianteMatricula() { return theEstudianteMatricula; }
+    public Curso getTheCursoMatricula() { return theCursoMatricula; }
+    public List<ServicioAdicional> getListServiciosAdicionales() { return listServiciosAdicionales; }
 
+    public static class Builder {
+        private LocalDate fechaInicio;
+        private LocalDate fechaFin;
+        private double descuento;
+        private double valorFinal;
+        private Estudiante theEstudianteMatricula;
+        private Curso theCursoMatricula;
+        private List<ServicioAdicional> listServiciosAdicionales = new ArrayList<>();
 
-    public double getValorFinal() {
-        return valorFinal;
-    }
+        public Builder fechaInicio(LocalDate fechaInicio) {
+            this.fechaInicio = fechaInicio;
+            return this;
+        }
 
-    public void setValorFinal(double valorFinal) {
-        this.valorFinal = valorFinal;
-    }
+        public Builder fechaFin(LocalDate fechaFin) {
+            this.fechaFin = fechaFin;
+            return this;
+        }
 
-    public double getDescuento() {
-        return descuento;
-    }
+        public Builder descuento(double descuento) {
+            this.descuento = descuento;
+            return this;
+        }
 
-    public void setDescuento(double descuento) {
-        this.descuento = descuento;
-    }
+        public Builder valorFinal(double valorFinal) {
+            this.valorFinal = valorFinal;
+            return this;
+        }
 
-    public double getFechaInicio() {
-        return fechaInicio;
-    }
+        public Builder theEstudianteMatricula(Estudiante theEstudianteMatricula) {
+            this.theEstudianteMatricula = theEstudianteMatricula;
+            return this;
+        }
 
-    public void setFechaInicio(double fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
+        public Builder theCursoMatricula(Curso theCursoMatricula) {
+            this.theCursoMatricula = theCursoMatricula;
+            return this;
+        }
 
-    public double getFechaFin() {
-        return fechaFin;
-    }
+        public Builder listServiciosAdicionales(List<ServicioAdicional> servicios) {
+            this.listServiciosAdicionales = servicios;
+            return this;
+        }
 
-    public void setFechaFin(double fechaFin) {
-        this.fechaFin = fechaFin;
+        public Matricula build() {
+            return new Matricula(this);
+        }
     }
 }

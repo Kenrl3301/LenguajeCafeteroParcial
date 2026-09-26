@@ -1,5 +1,6 @@
 package co.uniquindio.poo.lenguajecafeteroparcial.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class LenguajeCafetero {
         return mensaje;
     }
 
+
+    //------------------------------------------------- CRUD ESTUDIANTE-----------------------------------------------------------------------
     public boolean buscarEstudiante(int id){
         boolean encontrado = false;
         for(Persona e : listPersonaLenguajeCafetero){
@@ -52,7 +55,7 @@ public class LenguajeCafetero {
         return encontrado;
     }
 
-    public String agregarEstudiante(String nombre, int edad, int id, String telefono, String correo, double fechaIngreso){
+    public String agregarEstudiante(String nombre, int edad, int id, String telefono, String correo, LocalDate fechaIngreso){
         String mensaje = "";
         if(buscarEstudiante(id)){
             mensaje = "Estudiante ya se encuentra registrado";
@@ -63,6 +66,18 @@ public class LenguajeCafetero {
         }
         return mensaje;
     }
+
+// --------------------------------------------- CRUD MATRICULA ----------------------------------------------------------
+
+    Matricula nuevaMatricula = new Matricula.Builder()
+            .fechaInicio()
+            .fechaFin()
+            .descuento()
+            .valorFinal()                 // Todavia faltan metodos pa empezar a hacer esta vaina
+            .theEstudianteMatricula()
+            .theCursoMatricula()
+            .listServiciosAdicionales()
+            .build();
 
     public String getNit() {
         return nit;
