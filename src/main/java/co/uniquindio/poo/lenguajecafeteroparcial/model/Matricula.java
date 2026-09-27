@@ -23,6 +23,16 @@ public class Matricula {
         this.theCursoMatricula = builder.theCursoMatricula;
         this.listServiciosAdicionales = builder.listServiciosAdicionales;
     }
+    public void calcularMatricula () {
+        double costoTotal = 0.0;
+        double valorDescuento = costoTotal * (this.descuento / 100);
+        costoTotal += this.theCursoMatricula.getValorM();
+        for (ServicioAdicional servicio : listServiciosAdicionales) {
+            costoTotal += servicio.getPrecio();
+            this.valorFinal = costoTotal;
+        }
+
+    }
 
     public LocalDate getFechaInicio() { return fechaInicio; }
     public LocalDate getFechaFin() { return fechaFin; }
@@ -40,6 +50,8 @@ public class Matricula {
         private Estudiante theEstudianteMatricula;
         private Curso theCursoMatricula;
         private List<ServicioAdicional> listServiciosAdicionales = new ArrayList<>();
+
+
 
         public Builder fechaInicio(LocalDate fechaInicio) {
             this.fechaInicio = fechaInicio;

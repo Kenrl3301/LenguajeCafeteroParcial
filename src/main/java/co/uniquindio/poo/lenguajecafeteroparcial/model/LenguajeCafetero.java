@@ -28,7 +28,7 @@ public class LenguajeCafetero {
         this.listPersonaLenguajeCafetero = new ArrayList<>();
     }
 
-    public static LenguajeCafetero getInstance(String nit, String url, String correoE, String direccion) {
+    private static LenguajeCafetero getInstance(String nit, String url, String correoE, String direccion) {
         if (instancia == null) {
             instancia = new LenguajeCafetero(nit, url, correoE, direccion);
         }
@@ -126,12 +126,9 @@ public class LenguajeCafetero {
     public boolean buscarServicioAdicional(int codigo){
         boolean encontrado = false;
         for(ServicioAdicional s : listServicioAdicionalLenguajeCafetero){
-            if(s.getCodigo()==codigo){
-                encontrado = true;
-            }else{
+            if(s.getCodigo()==codigo)
                 return encontrado;
             }
-        }
 
         return encontrado;
     }
@@ -175,8 +172,21 @@ public class LenguajeCafetero {
                 .listServiciosAdicionales(serviciosSeleccionados)
                 .build();
 
+        nuevaMatricula.calcularMatricula();
+
         listMatriculaLenguajeCafetero.add(nuevaMatricula);
-        return "Matrícula registrada correctamente";
+        return "Matrícula registrada correctamente. Total $" + nuevaMatricula.getValorFinal();
+    }
+
+    public double calcularIngresos(LocalDate fechaInicialBusqueda, LocalDate fechaFinalBusqueda){
+        double totalIngresos = 0.0;
+        for(Matricula m : listMatriculaLenguajeCafetero){
+            LocalDate fechaMat = m.getFechaInicio();
+            if(!fechaMat.isBefore(fechaInicialBusqueda) && !fechaMat.isAfter(fechaFinalBusqueda)){
+                totalIngresos += m.getValorFinal();
+            }
+        }
+        return totalIngresos;
     }
     public String getNit() {
         return nit;
