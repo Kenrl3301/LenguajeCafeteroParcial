@@ -23,15 +23,28 @@ public class Matricula {
         this.theCursoMatricula = builder.theCursoMatricula;
         this.listServiciosAdicionales = builder.listServiciosAdicionales;
     }
-    public void calcularMatricula () {
+    public void calcularMatricula() {
         double costoTotal = 0.0;
-        double valorDescuento = costoTotal * (this.descuento / 100);
-        costoTotal += this.theCursoMatricula.getValorM();
-        for (ServicioAdicional servicio : listServiciosAdicionales) {
-            costoTotal += servicio.getPrecio();
-            this.valorFinal = costoTotal;
-        }
 
+
+        if (this.theCursoMatricula instanceof CursoPersonalizado) {
+
+            CursoPersonalizado cursoPers = (CursoPersonalizado) this.theCursoMatricula;
+
+            costoTotal += cursoPers.getProfesor().getTarifaSesion() * cursoPers.getCantidadSesiones();
+
+        } else {
+
+            costoTotal += this.theCursoMatricula.getValorM();
+        }
+        if (this.listServiciosAdicionales != null) {
+            for (ServicioAdicional servicio : this.listServiciosAdicionales) {
+                costoTotal += servicio.getPrecio();
+            }
+        }
+        double valorDescuento = costoTotal * (this.descuento / 100.0);
+
+        this.valorFinal = costoTotal - valorDescuento;
     }
 
     public LocalDate getFechaInicio() { return fechaInicio; }
