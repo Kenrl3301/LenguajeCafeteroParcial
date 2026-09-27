@@ -9,14 +9,15 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        // Cambiamos la ruta para que cargue tu interfaz principal
         FXMLLoader fxmlLoader = new FXMLLoader(
-                HelloApplication.class.getResource("hello-view.fxml")
+                HelloApplication.class.getResource("/co/uniquindio/poo/lenguajecafeteroparcial/Gestion.fxml")
         );
 
         Scene scene = new Scene(fxmlLoader.load());
 
-        stage.setTitle("Lenguaje Cafetero");
+        // Actualizamos el título de la ventana
+        stage.setTitle("Academia Lenguaje Cafetero");
         stage.setScene(scene);
         stage.show();
     }

@@ -8,59 +8,39 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GestionController implements Initializable {
 
-
-    @FXML private TextField txtNombreEstudiante;
-    @FXML private TextField txtEdadEstudiante;
-    @FXML private TextField txtIdEstudiante;
-    @FXML private TextField txtTelefonoEstudiante;
-    @FXML private TextField txtCorreoEstudiante;
+    // --- ESTUDIANTES ---
+    @FXML private TextField txtNombreEstudiante, txtEdadEstudiante, txtIdEstudiante, txtTelefonoEstudiante, txtCorreoEstudiante;
     @FXML private DatePicker dpFechaIngreso;
 
-
+    // --- CURSOS ---
     @FXML private ComboBox<String> cbTipoCurso;
-    @FXML private TextField txtCodigoCurso;
-    @FXML private TextField txtNombreCurso;
-    @FXML private TextField txtValorCurso;
-    @FXML private TextField txtDuracionCurso;
-    @FXML private TextField txtDescripcionCurso;
+    @FXML private TextField txtCodigoCurso, txtNombreCurso, txtValorCurso, txtDuracionCurso, txtDescripcionCurso;
     @FXML private ComboBox<Idioma> cbIdiomaCurso;
     @FXML private ComboBox<Estado> cbEstadoCurso;
 
+    @FXML private ComboBox<Beneficio> cbBeneficiosCurso;
+    @FXML private ComboBox<Profesor> cbProfesorCurso;
 
-    @FXML private TextField txtNombreProfesor;
-    @FXML private TextField txtEdadProfesor;
-    @FXML private TextField txtIdProfesor;
-    @FXML private TextField txtTelefonoProfesor;
-    @FXML private TextField txtCorreoProfesor;
-    @FXML private TextField txtTarifaProfesor;
-    @FXML private TextField txtSesionesProfesor;
+    // --- PROFESORES ---
+    @FXML private TextField txtNombreProfesor, txtEdadProfesor, txtIdProfesor, txtTelefonoProfesor, txtCorreoProfesor, txtTarifaProfesor, txtSesionesProfesor;
     @FXML private ComboBox<NivelReferencia> cbNivelReferencia;
     @FXML private ComboBox<Idioma> cbIdiomaProfesor;
 
-
-    @FXML private TextField txtCodigoServicio;
-    @FXML private TextField txtNombreServicio;
-    @FXML private TextField txtPrecioServicio;
-    @FXML private TextField txtDescripcionServicio;
+    // --- SERVICIOS ---
+    @FXML private TextField txtCodigoServicio, txtNombreServicio, txtPrecioServicio, txtDescripcionServicio;
     @FXML private ComboBox<String> cbDisponibilidadServicio;
 
-    // Instancia de nuestro Singleton (El jefe del backend)
     private LenguajeCafetero admin = LenguajeCafetero.getInstance("12345", "www.lenguajecafetero.com", "info@lenguajecafetero.com", "Armenia, Quindio");
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,9 +51,23 @@ public class GestionController implements Initializable {
         cbIdiomaProfesor.getItems().addAll(Idioma.values());
         cbEstadoCurso.getItems().addAll(Estado.values());
         cbNivelReferencia.getItems().addAll(NivelReferencia.values());
+
+        // Cargamos las opciones del Enum Beneficio en el ComboBox
+        cbBeneficiosCurso.getItems().addAll(Beneficio.values());
+
+        cargarProfesoresEnComboBox();
     }
 
-
+    private void cargarProfesoresEnComboBox() {
+        cbProfesorCurso.getItems().clear();
+        if (admin.getListPersonaLenguajeCafetero() != null) {
+            for (Persona p : admin.getListPersonaLenguajeCafetero()) {
+                if (p instanceof Profesor) {
+                    cbProfesorCurso.getItems().add((Profesor) p);
+                }
+            }
+        }
+    }
 
     @FXML
     void registrarEstudiante(ActionEvent event) {
@@ -86,16 +80,16 @@ public class GestionController implements Initializable {
             LocalDate fecha = dpFechaIngreso.getValue();
 
             String msj = admin.agregarEstudiante(nombre, edad, id, telefono, correo, fecha);
-            mostrarMensaje("Gestión de Estudiantes", "Resultado", msj, Alert.AlertType.INFORMATION);
-
-        } catch (NumberFormatException e) {
-            mostrarMensaje("Error", "Datos inválidos", "Revisa que la edad y el ID sean números.", Alert.AlertType.ERROR);
+            mostrarMensaje("Estudiantes", msj, Alert.AlertType.INFORMATION);
+        } catch (Exception e) {
+            mostrarMensaje("Error", "Verifica que los datos numéricos y fechas sean correctos.", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     void registrarCurso(ActionEvent event) {
         try {
+            String tipo = cbTipoCurso.getValue();
             int codigo = Integer.parseInt(txtCodigoCurso.getText());
             String nombre = txtNombreCurso.getText();
             double valor = Double.parseDouble(txtValorCurso.getText());
@@ -104,11 +98,18 @@ public class GestionController implements Initializable {
             Idioma idioma = cbIdiomaCurso.getValue();
             Estado estado = cbEstadoCurso.getValue();
 
-            String msj = admin.agregarCurso(codigo, idioma, estado, valor, duracion, descripcion, nombre, new ArrayList<>());
-            mostrarMensaje("Gestión de Cursos", "Resultado", msj, Alert.AlertType.INFORMATION);
+            Beneficio beneficioSeleccionado = cbBeneficiosCurso.getValue();
+            Profesor profe = cbProfesorCurso.getValue();
 
+            if (tipo == null || idioma == null || estado == null) {
+                mostrarMensaje("Error", "Debe seleccionar tipo de curso, idioma y estado.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            String msj = admin.agregarCurso(tipo, codigo, idioma, estado, valor, duracion, descripcion, nombre, beneficioSeleccionado, profe);
+            mostrarMensaje("Cursos", msj, Alert.AlertType.INFORMATION);
         } catch (Exception e) {
-            mostrarMensaje("Error", "Faltan datos", "Revisa los campos del curso.", Alert.AlertType.ERROR);
+            mostrarMensaje("Error", "Verifica los datos del curso.", Alert.AlertType.ERROR);
         }
     }
 
@@ -126,10 +127,11 @@ public class GestionController implements Initializable {
             Idioma idioma = cbIdiomaProfesor.getValue();
 
             String msj = admin.agregarProfesor(nombre, edad, id, telefono, correo, nivel, tarifa, sesiones, idioma);
-            mostrarMensaje("Gestión de Profesores", "Resultado", msj, Alert.AlertType.INFORMATION);
+            mostrarMensaje("Profesores", msj, Alert.AlertType.INFORMATION);
 
+            cargarProfesoresEnComboBox();
         } catch (Exception e) {
-            mostrarMensaje("Error", "Datos de profesor inválidos", "Verifica la tarifa y sesiones.", Alert.AlertType.ERROR);
+            mostrarMensaje("Error", "Verifica los datos del profesor.", Alert.AlertType.ERROR);
         }
     }
 
@@ -143,10 +145,9 @@ public class GestionController implements Initializable {
             boolean disponible = cbDisponibilidadServicio.getValue().equals("Disponible");
 
             String msj = admin.agregarServicioAdicional(codigo, disponible, precio, descripcion, nombre);
-            mostrarMensaje("Gestión de Servicios", "Resultado", msj, Alert.AlertType.INFORMATION);
-
+            mostrarMensaje("Servicios", msj, Alert.AlertType.INFORMATION);
         } catch (Exception e) {
-            mostrarMensaje("Error", "Campos inválidos", "Verifica el precio y código.", Alert.AlertType.ERROR);
+            mostrarMensaje("Error", "Verifica los datos del servicio.", Alert.AlertType.ERROR);
         }
     }
 
@@ -155,23 +156,20 @@ public class GestionController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/uniquindio/poo/lenguajecafeteroparcial/Matricula.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Panel de Matrículas");
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestión de Matrículas");
             stage.show();
-
         } catch (IOException e) {
-            mostrarMensaje("Error", "No se pudo abrir", "Verifica la ruta de Matricula.fxml", Alert.AlertType.ERROR);
+            mostrarMensaje("Error", "No se pudo cargar la ventana de matrículas.", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }
 
-    private void mostrarMensaje(String titulo, String encabezado, String contenido, Alert.AlertType tipo) {
+    private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
-        alerta.setHeaderText(encabezado);
+        alerta.setHeaderText(null);
         alerta.setContentText(contenido);
         alerta.showAndWait();
     }

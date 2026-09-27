@@ -3,12 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="co.uniquindio.poo.lenguajecafeteroparcial.controller.LenguajeCafeteroController">
+<AnchorPane prefHeight="750.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.poo.lenguajecafeteroparcial.controller.GestionController">
 
     <children>
 
-        <Label layoutX="280.0" layoutY="14.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="ACADEMIA LENGUAJE CAFETERO" />
+        <Label layoutX="275.0" layoutY="13.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="ACADEMIA LENGUAJE CAFETERO" />
 
         <!-- ESTUDIANTES -->
         <VBox layoutX="25.0" layoutY="70.0" prefWidth="250.0" spacing="10">
@@ -23,7 +22,7 @@
         </VBox>
 
         <!-- CURSOS -->
-        <VBox layoutX="325.0" layoutY="70.0" prefWidth="250.0" spacing="10">
+        <VBox layoutX="325.0" layoutY="48.0" prefWidth="250.0" spacing="10">
             <Label style="-fx-font-size:18px;" text="GESTION CURSOS" underline="true" />
             <ComboBox fx:id="cbTipoCurso" prefWidth="250.0" promptText="Tipo de curso" />
             <TextField fx:id="txtCodigoCurso" promptText="Código" />
@@ -33,6 +32,11 @@
             <TextField fx:id="txtDescripcionCurso" promptText="Descripción" />
             <ComboBox fx:id="cbIdiomaCurso" prefWidth="250.0" promptText="Idioma" />
             <ComboBox fx:id="cbEstadoCurso" prefWidth="250.0" promptText="Estado" />
+
+            <!-- CAMPOS NUEVOS PARA EL ENUM Y EL PROFESOR -->
+            <ComboBox fx:id="cbBeneficiosCurso" prefWidth="250.0" promptText="Seleccione un beneficio" />
+            <ComboBox fx:id="cbProfesorCurso" prefWidth="250.0" promptText="Profesor (Solo si es Personalizado)" />
+
             <Button onAction="#registrarCurso" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;" text="Registrar Curso" />
         </VBox>
 
@@ -52,7 +56,7 @@
         </VBox>
 
         <!-- SERVICIOS ADICIONALES -->
-        <VBox layoutX="296.0" layoutY="440.0" prefWidth="320.0" spacing="10">
+        <VBox layoutX="875.0" layoutY="71.0" prefHeight="255.0" prefWidth="296.0" spacing="10">
             <Label style="-fx-font-size:18px;" text="CREAR SERVICIO ADICIONAL" underline="true" />
             <TextField fx:id="txtCodigoServicio" promptText="Código del servicio" />
             <TextField fx:id="txtNombreServicio" promptText="Nombre del servicio" />
@@ -63,10 +67,8 @@
         </VBox>
 
         <!-- BOTÓN MATRÍCULAS -->
-        <Button layoutX="25.0" layoutY="470.0" onAction="#abrirPanelMatriculas" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;" text="Ir a Panel de Matrículas" />
+        <Button layoutX="25.0" layoutY="480.0" onAction="#abrirPanelMatriculas" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;" text="Ir a Panel de Matrículas" />
 
     </children>
-
-
 
 </AnchorPane>

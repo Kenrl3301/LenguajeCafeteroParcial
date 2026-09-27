@@ -7,13 +7,17 @@ public class CursoPersonalizado extends Curso {
     private int cantidadSesiones;
     private NivelReferencia nivelReferencia;
     private String objetivos;
+
+
     private Profesor profesor;
 
-    public CursoPersonalizado(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, int cantidadSesiones, NivelReferencia nivelReferencia, String objetivos, List<Beneficio> ListBeneficioCurso) {
-        super(codigo, idioma, estado, valorM, duracion, descripcion, nombre, ListBeneficioCurso);
+
+    public CursoPersonalizado(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, int cantidadSesiones, NivelReferencia nivelReferencia, String objetivos, Profesor profesor, List<Beneficio> listBeneficioCurso) {
+        super(codigo, idioma, estado, valorM, duracion, descripcion, nombre, listBeneficioCurso);
         this.cantidadSesiones = cantidadSesiones;
         this.nivelReferencia = nivelReferencia;
         this.objetivos = objetivos;
+        this.profesor = profesor;
     }
 
     public int getCantidadSesiones() {
@@ -40,9 +44,12 @@ public class CursoPersonalizado extends Curso {
         this.objetivos = objetivos;
     }
 
-    public Profesor getProfesor() { return profesor;
+    // Métodos para acceder y modificar al profesor desde la Matrícula
+    public Profesor getProfesor() {
+        return profesor;
     }
 
-    public void setProfesor(Profesor profesor) { this.profesor = profesor;
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 }

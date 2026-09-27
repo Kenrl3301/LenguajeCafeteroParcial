@@ -3,7 +3,7 @@ package co.uniquindio.poo.lenguajecafeteroparcial.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Curso {
+public abstract class Curso {
     private int codigo;
     private String nombre;
     private String descripcion;
@@ -15,7 +15,7 @@ public class Curso {
     private List<ServicioAdicional> listServicioAdicionalCurso;
     private List<Beneficio> listBeneficioCurso;
 
-    // Se agrega listBeneficioCurso al final del constructor
+
     public Curso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, List<Beneficio> listBeneficioCurso) {
         this.codigo = codigo;
         this.idioma = idioma;

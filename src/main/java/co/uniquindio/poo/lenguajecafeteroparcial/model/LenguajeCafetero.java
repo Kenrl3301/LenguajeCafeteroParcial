@@ -36,48 +36,69 @@ public class LenguajeCafetero {
     }
 
     // ----------------------------------------------------------------------CRUD CURSO----------------------------------------
-    public String agregarCurso(int codigo, Idioma idioma, Estado estado, double valorM, int duracion, String descripcion, String nombre, List<Beneficio> ListBeneficioCurso){
-        String mensaje = "";
-        for(Curso c : listCursoLenguajeCafetero){
-            if(c.getNombre().equals(nombre)){
+    public String agregarCurso(String tipoCurso, int codigo, Idioma idioma, Estado estado,
+                               double valorM, int duracion, String descripcion, String nombre,
+                               Beneficio beneficio, Profesor profesor) {
+
+        for (Curso c : listCursoLenguajeCafetero) {
+            if (c.getNombre().equals(nombre)) {
                 return "El curso con este nombre ya se encuentra registrado";
-            }else{
-                Curso curso = new Curso(codigo, idioma, estado, valorM, duracion, descripcion, nombre, ListBeneficioCurso);
-                listCursoLenguajeCafetero.add(curso);
-                return "Curso registrado correctamente";
             }
         }
-        return mensaje;
+
+        if (tipoCurso.equals("Personalizado") && profesor == null) {
+            return "Debe seleccionar un profesor para crear un curso personalizado.";
+        }
+
+
+        List<Beneficio> listaBeneficios = new ArrayList<>();
+        if (beneficio != null) {
+            listaBeneficios.add(beneficio);
+        }
+
+        Curso nuevoCurso = null;
+
+        if (tipoCurso.equals("Personalizado")) {
+
+            int sesionesProfe = profesor.getSesiones();
+            nuevoCurso = CursoFactory.createCursoPersonalizado(codigo, idioma, estado, valorM, duracion, descripcion, nombre, sesionesProfe, NivelReferencia.A1, "General", profesor, listaBeneficios);
+        } else {
+            nuevoCurso = CursoFactory.createCursoBasico(tipoCurso, codigo, idioma, estado, valorM, duracion, descripcion, nombre, listaBeneficios);
+        }
+
+        if (nuevoCurso != null) {
+            listCursoLenguajeCafetero.add(nuevoCurso);
+            return "Curso registrado correctamente.";
+        }
+
+        return "Error: No se pudo generar el curso. Verifique el tipo seleccionado.";
     }
 
-    public Curso obtenerCurso(String nombre){
-        for(Curso c : listCursoLenguajeCafetero){
-            if(c.getNombre().equals(nombre)){
+
+    public Curso obtenerCurso(String nombreCurso) {
+        for (Curso c : listCursoLenguajeCafetero) {
+            if (c.getNombre().equals(nombreCurso)) {
                 return c;
             }
         }
         return null;
     }
 
-
     //------------------------------------------------- CRUD ESTUDIANTE-----------------------------------------------------------------------
-    public boolean buscarEstudiante(int id){
-        boolean encontrado = false;
-        for(Persona e : listPersonaLenguajeCafetero){
-            if(e.getId() == id){
-                return encontrado;
-            }else{
-                encontrado = true;
+    public boolean buscarEstudiante(int id) {
+        for (Persona e : listPersonaLenguajeCafetero) {
+            if (e.getId() == id && e instanceof Estudiante) {
+                return true;
             }
         }
-        return encontrado;
+        return false;
     }
 
-    public String agregarEstudiante(String nombre, int edad, int id, String telefono, String correo, LocalDate fechaIngreso){
+    public String agregarEstudiante(String nombre, int edad, int id, String telefono, String correo, LocalDate fechaIngreso) {
         String mensaje = "";
-        if(buscarEstudiante(id)){
+        if (buscarEstudiante(id)) {
             mensaje = "Estudiante ya se encuentra registrado";
-        }else{
+        } else {
             Estudiante estudiante = new Estudiante(nombre, edad, id, telefono, correo, fechaIngreso);
             listPersonaLenguajeCafetero.add(estudiante);
             mensaje = "El estudiante se registro correctamente";
@@ -85,9 +106,9 @@ public class LenguajeCafetero {
         return mensaje;
     }
 
-    public Estudiante obtenerEstudiante(int id){
-        for(Persona p : listPersonaLenguajeCafetero){
-            if(p.getId() == id && p instanceof Estudiante){
+    public Estudiante obtenerEstudiante(int id) {
+        for (Persona p : listPersonaLenguajeCafetero) {
+            if (p.getId() == id && p instanceof Estudiante) {
                 return (Estudiante) p;
             }
         }
@@ -96,48 +117,43 @@ public class LenguajeCafetero {
 
     // ---------------------------------------------------CRUD PROFESOR-----------------------------------------------
 
-    public boolean buscarProfesor(int id){
-        boolean encontrado = false;
-        for(Persona p : listPersonaLenguajeCafetero){
-            if(p.getId()==id){
-                if(p instanceof Profesor){
-                    encontrado = true;
-                }
-            }else{
-                return encontrado;
+    public boolean buscarProfesor(int id) {
+        for (Persona p : listPersonaLenguajeCafetero) {
+            if (p.getId() == id && p instanceof Profesor) {
+                return true;
             }
         }
-
-        return encontrado;
+        return false;
     }
 
-    public String agregarProfesor(String nombre, int edad, int id, String telefono, String correo, NivelReferencia nivelReferencia, double tarifaSesion, int sesiones, Idioma idioma){
+    public String agregarProfesor(String nombre, int edad, int id, String telefono, String correo, NivelReferencia nivelReferencia, double tarifaSesion, int sesiones, Idioma idioma) {
         String mensaje = "";
-        if(buscarProfesor(id)){
+        if (buscarProfesor(id)) {
             mensaje = "Profesor ya se encuentra registrado";
-        }else{
+        } else {
             Profesor profesor = new Profesor(nombre, edad, id, telefono, correo, nivelReferencia, tarifaSesion, sesiones, idioma);
             listPersonaLenguajeCafetero.add(profesor);
             mensaje = "El Profesor se registro correctamente";
         }
         return mensaje;
     }
-   // --------------------------------------------------------------- CRUD SERVICIO ADICIONAL ------------------------------------------
-    public boolean buscarServicioAdicional(int codigo){
+
+    // --------------------------------------------------------------- CRUD SERVICIO ADICIONAL ------------------------------------------
+    public boolean buscarServicioAdicional(int codigo) {
         boolean encontrado = false;
-        for(ServicioAdicional s : listServicioAdicionalLenguajeCafetero){
-            if(s.getCodigo()==codigo)
+        for (ServicioAdicional s : listServicioAdicionalLenguajeCafetero) {
+            if (s.getCodigo() == codigo)
                 return encontrado;
-            }
+        }
 
         return encontrado;
     }
 
-    public String agregarServicioAdicional(int codigo, boolean disponibilidad, double precio, String descripcion, String nombre){
+    public String agregarServicioAdicional(int codigo, boolean disponibilidad, double precio, String descripcion, String nombre) {
         String mensaje = "";
-        if(buscarServicioAdicional(codigo)){
+        if (buscarServicioAdicional(codigo)) {
             mensaje = "EL servicio ya se encuentra registado";
-        }else{
+        } else {
             ServicioAdicional servicio = new ServicioAdicional(codigo, disponibilidad, precio, descripcion, nombre);
             listServicioAdicionalLenguajeCafetero.add(servicio);
             mensaje = "El Servicio Adicional se registro correctamente";
@@ -149,15 +165,15 @@ public class LenguajeCafetero {
 // --------------------------------------------- CRUD MATRICULA ----------------------------------------------------------
 
     public String agregarMatricula(LocalDate fechaInicio, LocalDate fechaFin, double descuento, double valorFinal,
-                                   int idEstudiante, String nombreCurso, List<ServicioAdicional> serviciosSeleccionados){
+                                   int idEstudiante, String nombreCurso, List<ServicioAdicional> serviciosSeleccionados) {
 
         Estudiante estudiante = obtenerEstudiante(idEstudiante);
-        if(estudiante == null){
+        if (estudiante == null) {
             return "Estudiante no encontrado";
         }
 
         Curso curso = obtenerCurso(nombreCurso);
-        if(curso == null){
+        if (curso == null) {
             return "Curso no encontrado";
         }
 
@@ -178,16 +194,17 @@ public class LenguajeCafetero {
         return "Matrícula registrada correctamente. Total $" + nuevaMatricula.getValorFinal();
     }
 
-    public double calcularIngresos(LocalDate fechaInicialBusqueda, LocalDate fechaFinalBusqueda){
+    public double calcularIngresos(LocalDate fechaInicialBusqueda, LocalDate fechaFinalBusqueda) {
         double totalIngresos = 0.0;
-        for(Matricula m : listMatriculaLenguajeCafetero){
+        for (Matricula m : listMatriculaLenguajeCafetero) {
             LocalDate fechaMat = m.getFechaInicio();
-            if(!fechaMat.isBefore(fechaInicialBusqueda) && !fechaMat.isAfter(fechaFinalBusqueda)){
+            if (!fechaMat.isBefore(fechaInicialBusqueda) && !fechaMat.isAfter(fechaFinalBusqueda)) {
                 totalIngresos += m.getValorFinal();
             }
         }
         return totalIngresos;
     }
+
     public String getNit() {
         return nit;
     }
@@ -219,4 +236,17 @@ public class LenguajeCafetero {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    public List<Curso> getListCursoLenguajeCafetero() {
+        return listCursoLenguajeCafetero;
+    }
+
+    public List<ServicioAdicional> getListServicioAdicionalLenguajeCafetero() {
+        return listServicioAdicionalLenguajeCafetero;
+    }
+
+    public List<Persona> getListPersonaLenguajeCafetero() {
+        return listPersonaLenguajeCafetero;
+    }
+
 }
