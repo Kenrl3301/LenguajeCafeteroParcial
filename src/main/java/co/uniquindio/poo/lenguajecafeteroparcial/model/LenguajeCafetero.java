@@ -28,7 +28,7 @@ public class LenguajeCafetero {
         this.listPersonaLenguajeCafetero = new ArrayList<>();
     }
 
-    private static LenguajeCafetero getInstance(String nit, String url, String correoE, String direccion) {
+    public static LenguajeCafetero getInstance(String nit, String url, String correoE, String direccion) {
         if (instancia == null) {
             instancia = new LenguajeCafetero(nit, url, correoE, direccion);
         }

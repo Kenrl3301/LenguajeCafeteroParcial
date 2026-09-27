@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.uniquindio.poo.lenguajecafeteroparcial.controller.MatriculaController">
+
+    <children>
+
+        <Label layoutX="320.0" layoutY="14.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="PANEL DE MATRÍCULAS" />
+
+        <!-- GESTION MATRICULA -->
+        <VBox layoutX="50.0" layoutY="70.0" prefWidth="350.0" spacing="10">
+            <Label style="-fx-font-size:18px;" text="NUEVA MATRÍCULA" underline="true" />
+
+            <TextField fx:id="txtIdEstudiante" promptText="ID del Estudiante" />
+
+            <!-- Usamos ComboBox para listar los cursos disponibles -->
+            <ComboBox fx:id="cbCursoMatricula" prefWidth="350.0" promptText="Seleccionar Curso" />
+
+            <DatePicker fx:id="dpFechaInicio" prefWidth="350.0" promptText="Fecha de Inicio" />
+            <DatePicker fx:id="dpFechaFin" prefWidth="350.0" promptText="Fecha de Fin" />
+
+            <TextField fx:id="txtDescuento" promptText="Porcentaje de Descuento (Ej: 15)" />
+
+            <Label style="-fx-font-weight: bold;" text="Servicios Adicionales:" />
+            <HBox spacing="10">
+                <ComboBox fx:id="cbServicios" prefWidth="230.0" promptText="Seleccionar Servicio" />
+                <Button onAction="#agregarServicioAMatricula" text="Agregar" />
+            </HBox>
+
+            <!-- Un TextArea pequeño o ListView para mostrar los servicios que se van agregando -->
+            <TextArea fx:id="txtAreaServiciosSeleccionados" editable="false" prefHeight="60.0" promptText="Servicios agregados aparecerán aquí..." />
+
+            <Button onAction="#registrarMatricula" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;" text="Guardar Matrícula" />
+        </VBox>
+
+        <!-- REPORTE DE INGRESOS (REQUISITO DEL PARCIAL) -->
+        <VBox layoutX="480.0" layoutY="70.0" prefWidth="350.0" spacing="10">
+            <Label style="-fx-font-size:18px;" text="REPORTE DE INGRESOS" underline="true" />
+
+            <Label text="Seleccione el rango de fechas:" />
+            <DatePicker fx:id="dpFechaInicialBusqueda" prefWidth="350.0" promptText="Fecha Inicial" />
+            <DatePicker fx:id="dpFechaFinalBusqueda" prefWidth="350.0" promptText="Fecha Final" />
+
+            <Button onAction="#calcularIngresos" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;" text="Calcular Ingresos" />
+
+            <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Total Ingresos:" />
+            <TextField fx:id="txtTotalIngresos" editable="false" promptText="$ 0.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: green;" />
+        </VBox>
+
+        <!-- BOTÓN VOLVER -->
+        <Button layoutX="50.0" layoutY="550.0" onAction="#volverMenuPrincipal" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold;" text="Volver al Menú Principal" />
+
+    </children>
+
+</AnchorPane>
