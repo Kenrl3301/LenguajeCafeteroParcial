@@ -41,8 +41,8 @@ public class LenguajeCafetero {
                                Beneficio beneficio, Profesor profesor) {
 
         for (Curso c : listCursoLenguajeCafetero) {
-            if (c.getNombre().equals(nombre)) {
-                return "El curso con este nombre ya se encuentra registrado";
+            if (c.getCodigo() == codigo) {
+                return "El curso con este codigo ya se encuentra registrado";
             }
         }
 

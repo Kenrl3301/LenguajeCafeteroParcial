@@ -28,7 +28,7 @@
             <TextField fx:id="txtCodigoCurso" promptText="Código" />
             <TextField fx:id="txtNombreCurso" promptText="Nombre del curso" />
             <TextField fx:id="txtValorCurso" promptText="Valor mensual base" />
-            <TextField fx:id="txtDuracionCurso" promptText="Duración" />
+            <TextField fx:id="txtDuracionCurso" promptText="Duración (Mensual)" />
             <TextField fx:id="txtDescripcionCurso" promptText="Descripción" />
             <ComboBox fx:id="cbIdiomaCurso" prefWidth="250.0" promptText="Idioma" />
             <ComboBox fx:id="cbEstadoCurso" prefWidth="250.0" promptText="Estado" />
